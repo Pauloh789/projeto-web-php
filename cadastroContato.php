@@ -310,8 +310,11 @@
                                                     /*objeto com a query que sera usada */
                                                         $sqlEstados = "select codigoEstado, nomeEstado from estados";
                                                     /*query executa a string e o fetchALL retorna todos os resultados*/
-                                                       $resultadosEstados =  $conexao->query($sqlEstados)->fetchAll()
-                                                       /* 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 */
+                                                        $resultadosEstados =  $conexao->query($sqlEstados)->fetchAll();
+
+                                                        foreach ($resultadosEstados as list($codigoEstado, $nomeEstado)){
+                                                            echo "<option value=\"$codigoEstado \">$nomeEstado</option>\n";
+                                                        }
                                                     ?>
                                                 </select>
                                             </div>
