@@ -311,7 +311,7 @@
                                                         $sqlEstados = "select codigoEstado, nomeEstado from estados";
                                                     /*query executa a string e o fetchALL retorna todos os resultados*/
                                                         $resultadosEstados =  $conexao->query($sqlEstados)->fetchAll();
-
+                                                    /* executa um foreach sobre a lista de map que foi retornada da query e injeta no html a option*/ 
                                                         foreach ($resultadosEstados as list($codigoEstado, $nomeEstado)){
                                                             echo "<option value=\"$codigoEstado \">$nomeEstado</option>\n";
                                                         }
