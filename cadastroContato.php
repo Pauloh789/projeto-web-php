@@ -322,7 +322,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="bairro">Cidade*</label>
+                                            <label for="cidadeContato">Cidade*</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-globe"></i></div>
@@ -417,6 +417,13 @@
             };
         //linha que aplica mascara ao telefone
         $('.mascara-telefone').mask(SPMaskBehavior, spOptions);
+        //ajax
+        //quando o evento mudança ocorrer com o id estadoContato
+        $('#estadoContato').change(()=> {
+            $('#cidadeContato').html('<option>Carregando...</option>');
+            $('#cidadeContato').load('listaCidade.php?codigoEstado='+ $('#estadoContato').val());
+        });
+    
     });
 </script>
 
