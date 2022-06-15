@@ -39,8 +39,10 @@
                 <div class="col-sm"></div>
                 <div class="col-sm-10">
                     <?php
+                        $flagErro = False;
                         if (isset($_POST['acao'])){
                             $acao = $_POST['acao'];
+
                             if ($acao == "salvar"){
                                 $nomeUsuario = $_POST['nomeUsuario'];
                                 $mailUsuario = $_POST['mailUsuario'];
@@ -50,7 +52,7 @@
 
                                 $senhaUsuario = md5($senhaUsuario);
 
-                                $sqlNovoUsuario = "INSERT INTO usuario (nomeUsuario, mailUsuario, senhaUsuario) Values 
+                                $sqlNovoUsuario = "INSERT INTO usuarios (nomeUsuario, mailUsuario, senhaUsuario) Values 
                                 (:nomeUsuario, :mailUsuario, :senhaUsuario)";/*o : marca os valores para serem substituidos pela prep string*/
                                 
                                 $sqlNovoUsuarioST =  $conexao->prepare($sqlNovoUsuario);/*prepara para não haver ataques de sql injection*/
@@ -58,7 +60,22 @@
                                 $sqlNovoUsuarioST->bindValue(':mailUsuario',$mailUsuario);
                                 $sqlNovoUsuarioST->bindValue(':senhaUsuario',$senhaUsuario);
 
-                                $sqlNovoUsuarioST->execute();
+                                if ($sqlNovoUsuarioST->execute()){
+                                    $mensagemAcao = "Novo usuario cadastrado com sucesso!";
+                                }else{
+
+                                }
+
+                                if (!$flagErro){
+                                    $classeMensagem = "alert-sucess";
+                                }else{
+                                    $classeMensagem = "alert-danger";
+                                }
+
+                                echo "<div class=\"alert $classeMensagem alert-dismissible fade show\" role=\"alert\">
+                                        $mensagemAcao
+                                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
+                                    </div>";
                             }
                         }
                     ?>
