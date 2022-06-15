@@ -63,18 +63,21 @@
                                 if ($sqlNovoUsuarioST->execute()){
                                     $mensagemAcao = "Novo usuario cadastrado com sucesso!";
                                 }else{
-
+                                    $flagErro = True;
+                                    $mensagemAcao = "Código erro: " . $sqlNovoUsuarioST->errorCode();
                                 }
 
                                 if (!$flagErro){
-                                    $classeMensagem = "alert-sucess";
+                                    $classeMensagem = "alert-success";
                                 }else{
                                     $classeMensagem = "alert-danger";
                                 }
 
                                 echo "<div class=\"alert $classeMensagem alert-dismissible fade show\" role=\"alert\">
                                         $mensagemAcao
-                                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
+                                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\">
+                                        <span aria-hidden=\"true\">&times;</span>
+                                        </button>
                                     </div>";
                             }
                         }
