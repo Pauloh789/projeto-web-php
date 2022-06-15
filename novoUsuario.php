@@ -1,3 +1,7 @@
+<?php
+    include "conectaBanco.php"
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -9,6 +13,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-icons.css">
     <script src="js/jquery-3-3-1.js"></script>
+    <script src="js/bootstrap.bundle.js"></script>
     <script src="js/jquery.validate.js"></script>
     <script src="js/messages_pt_PT.js"></script>
     <script src="js/pwstrength-bootstrap.js"></script>
@@ -33,16 +38,41 @@
             <div class="row">
                 <div class="col-sm"></div>
                 <div class="col-sm-10">
+                    <?php
+                        if (isset($_POST['acao'])){
+                            $acao = $_POST['acao'];
+                            if ($acao == "salvar"){
+                                $nomeUsuario = $_POST['nomeUsuario'];
+                                $mailUsuario = $_POST['mailUsuario'];
+                                $mail2Usuario = $_POST['mail2Usuario'];
+                                $senhaUsuario = $_POST['senhaUsuario'];
+                                $senha2Usuario = $_POST['senha2Usuario'];
+
+                                $senhaUsuario = md5($senhaUsuario);
+
+                                $sqlNovoUsuario = "INSERT INTO usuario (nomeUsuario, mailUsuario, senhaUsuario) Values 
+                                (:nomeUsuario, :mailUsuario, :senhaUsuario)";/*o : marca os valores para serem substituidos pela prep string*/
+                                
+                                $sqlNovoUsuarioST =  $conexao->prepare($sqlNovoUsuario);/*prepara para não haver ataques de sql injection*/
+                                $sqlNovoUsuarioST->bindValue(':nomeUsuario',$nomeUsuario);
+                                $sqlNovoUsuarioST->bindValue(':mailUsuario',$mailUsuario);
+                                $sqlNovoUsuarioST->bindValue(':senhaUsuario',$senhaUsuario);
+
+                                $sqlNovoUsuarioST->execute();
+                            }
+                        }
+                    ?>
                     <div class="card border-primary">
                         <div class="card-header bg-primary text-white">
                             <h5> Cadastro de novo usuario</h5>
                         </div>
                         <div class="card-body">
                             <form id="novoUsuario" method="post" action="novoUsuario.php">
+                                <input type="hidden" name="acao" value="salvar">
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-group">
-                                            <label for="nomeUsuario">Nome</label>
+                                            <label for="nomeUsuario">Nome*</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-people-fill"></i></div>
@@ -57,7 +87,7 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-group">
-                                            <label for="mailUsuario">E-mail</label>
+                                            <label for="mailUsuario">E-mail*</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-at"></i></div>
@@ -70,7 +100,7 @@
                                     </div>
                                     <div class="col-sm">
                                         <div class="form-group">
-                                            <label for="mail2Usuario">Repita seu e-mail</label>
+                                            <label for="mail2Usuario">Repita seu e-mail*</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-at"></i></div>
@@ -85,7 +115,7 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-group">
-                                            <label for="senhaUsuario">Senha</label>
+                                            <label for="senhaUsuario">Senha*</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-key-fill"></i></div>
@@ -98,7 +128,7 @@
                                     </div>
                                     <div class="col-sm">
                                         <div class="form-group">
-                                            <label for="senha2Usuario">Repita sua senha</label>
+                                            <label for="senha2Usuario">Repita sua senha*</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-key-fill"></i></div>
