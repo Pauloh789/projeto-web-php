@@ -50,21 +50,43 @@
                                 $senhaUsuario = $_POST['senhaUsuario'];
                                 $senha2Usuario = $_POST['senha2Usuario'];
 
-                                $senhaUsuario = md5($senhaUsuario);
+                                if(!empty($nomeUsuario) && !empty($mailUsuario) && !empty($mail2Usuario) && !empty($senhaUsuario) && !empty($senha2Usuario) && !empty($nomeUsuario)){
 
-                                $sqlNovoUsuario = "INSERT INTO usuarios (nomeUsuario, mailUsuario, senhaUsuario) Values 
-                                (:nomeUsuario, :mailUsuario, :senhaUsuario)";/*o : marca os valores para serem substituidos pela prep string*/
-                                
-                                $sqlNovoUsuarioST =  $conexao->prepare($sqlNovoUsuario);/*prepara para não haver ataques de sql injection*/
-                                $sqlNovoUsuarioST->bindValue(':nomeUsuario',$nomeUsuario);
-                                $sqlNovoUsuarioST->bindValue(':mailUsuario',$mailUsuario);
-                                $sqlNovoUsuarioST->bindValue(':senhaUsuario',$senhaUsuario);
+                                    $sqlUsuarios = "SELECT codigoUsuario from usuarios where mailUsuario = :mailUsuario";
+                                    $sqlUsuariosST = $conexao->prepare($sqlUsuarios);
+                                    $sqlUsuariosST->bindValue(":mailUsuario", $mailUsuario);
+                                    $sqlUsuariosST->execute();
+                                    $quantidadeUsuarios = $sqlUsuariosST->rowcount();
+                                    //row count retorna a quantidade de usuarios na row
 
-                                if ($sqlNovoUsuarioST->execute()){
-                                    $mensagemAcao = "Novo usuario cadastrado com sucesso!";
+
+                                    if ($quantidadeUsuarios == 0 ){
+
+                                        $senhaUsuarioMD5 = md5($senhaUsuario);
+
+                                        $sqlNovoUsuario = "INSERT INTO usuarios (nomeUsuario, mailUsuario, senhaUsuario) Values 
+                                        (:nomeUsuario, :mailUsuario, :senhaUsuario)";/*o : marca os valores para serem substituidos pela prep string*/
+                                        
+                                        $sqlNovoUsuarioST =  $conexao->prepare($sqlNovoUsuario);/*prepara para não haver ataques de sql injection*/
+                                        $sqlNovoUsuarioST->bindValue(':nomeUsuario',$nomeUsuario);
+                                        $sqlNovoUsuarioST->bindValue(':mailUsuario',$mailUsuario);
+                                        $sqlNovoUsuarioST->bindValue(':senhaUsuario',$senhaUsuarioMD5);
+
+                                        if ($sqlNovoUsuarioST->execute()){
+                                            $mensagemAcao = "Novo usuario cadastrado com sucesso!";
+                                        }else{
+                                            $flagErro = True;
+                                            $mensagemAcao = "Código erro: " . $sqlNovoUsuarioST->errorCode();
+                                        }
+                                    }else{  
+                                        $flagErro = True;
+                                        $mensagemAcao = "Este Email já foi utilizado por outro usuário.";
+
+                                    }
                                 }else{
                                     $flagErro = True;
-                                    $mensagemAcao = "Código erro: " . $sqlNovoUsuarioST->errorCode();
+                                    $classeMensagem = "Preencha todos os campos obrigatórios (*)";
+
                                 }
 
                                 if (!$flagErro){
@@ -75,7 +97,7 @@
 
                                 echo "<div class=\"alert $classeMensagem alert-dismissible fade show\" role=\"alert\">
                                         $mensagemAcao
-                                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\">
+                                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
                                         <span aria-hidden=\"true\">&times;</span>
                                         </button>
                                     </div>";
@@ -98,7 +120,7 @@
                                                     <div class="input-group-text"><i class="bi-people-fill"></i></div>
                                                 </div>
                                                 <input id="nomeUsuario" type="text" size="60" class="form-control"
-                                                    name="nomeUsuario" placeholder="Digite o seu nome" value=""
+                                                    name="nomeUsuario" placeholder="Digite o seu nome" value="<?= ($flagErro) ? $nomeUsuario : '' ?>"
                                                     required>
                                             </div>
                                         </div>
@@ -113,7 +135,7 @@
                                                     <div class="input-group-text"><i class="bi-at"></i></div>
                                                 </div>
                                                 <input id="mailUsuario" type="email" size="60" class="form-control"
-                                                    name="mailUsuario" placeholder="Digite o seu e-mail" value=""
+                                                    name="mailUsuario" placeholder="Digite o seu e-mail" value="<?= ($flagErro) ? $mailUsuario : '' ?>"
                                                     required>
                                             </div>
                                         </div>
@@ -126,7 +148,7 @@
                                                     <div class="input-group-text"><i class="bi-at"></i></div>
                                                 </div>
                                                 <input id="mail2Usuario" type="email" class="form-control"
-                                                    name="mail2Usuario" placeholder="Repita o seu e-mail" value=""
+                                                    name="mail2Usuario" placeholder="Repita o seu e-mail" value="<?= ($flagErro) ? $mail2Usuario : '' ?>"
                                                     required>
                                             </div>
                                         </div>
@@ -141,7 +163,7 @@
                                                     <div class="input-group-text"><i class="bi-key-fill"></i></div>
                                                 </div>
                                                 <input id="senhaUsuario" type="password" class="form-control"
-                                                    name="senhaUsuario" placeholder="Digite sua senha" value=""
+                                                    name="senhaUsuario" placeholder="Digite sua senha" value="<?= ($flagErro) ? $senhaUsuario : '' ?>"
                                                     required>
                                             </div>
                                         </div>
@@ -154,7 +176,7 @@
                                                     <div class="input-group-text"><i class="bi-key-fill"></i></div>
                                                 </div>
                                                 <input id="senha2Usuario" type="password" class="form-control"
-                                                    name="senha2Usuario" placeholder="Repita a sua senha" value=""
+                                                    name="senha2Usuario" placeholder="Repita a sua senha" value="<?= ($flagErro) ? $senha2Usuario : '' ?>"
                                                     required>
                                             </div>
                                         </div>
