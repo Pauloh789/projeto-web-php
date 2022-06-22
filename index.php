@@ -78,6 +78,14 @@
                                 <div class="form-group">
                                     <div>
                                         <label for="senhaUsuario"> Senha:  </label> 
+<<<<<<< HEAD:index.php
+=======
+                                    </div>
+                                    <div>
+                                        <input type="password" name="senhaUsuario" class="form-control" size="50"
+                                            id="senhaUsuario" placeholder="Digite a sua senha:" required>
+                                        <label for="senhaUsuario"> Senha: </label>
+>>>>>>> 9c2a7836759cb870451ba8815353439a051220a9:index.html
                                     </div>
                                     <div>
                                         <input type="password" name="senhaUsuario" class="form-control" size="50"
