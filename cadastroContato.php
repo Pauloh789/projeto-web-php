@@ -1,5 +1,15 @@
 <?php
-    include "conectaBanco.php";
+    session_start();
+
+    $verificaUsuarioLogado = $_SESSION['verificaUsuarioLogado'];
+
+    if(!$verificaUsuarioLogado){
+        header("Location: index.php?codMsg=003");
+    } else {
+        include "conectaBanco.php";
+
+        $nomeUsuarioLogado = $_SESSION['nomeUsuarioLogado'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +91,9 @@
                     <input class="form-control mr-sm-2" type="search" name="busca" id="busca" placeholder="Pesquisar">
                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
-                <span></span>
+                <span class="navbar-text ml-4">
+                        Olá <b><?= $nomeUsuarioLogado ?><b>, seja bem-vindo(a)!
+                </span>
             </div>
         </div>
     </nav>

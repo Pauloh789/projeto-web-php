@@ -1,6 +1,6 @@
 <?php
-function($comprimentosenha, $habilitarMaiusculas, $habilitarNumeros, $habilitarCaracteres){
-    
+function($comprimentosenha = 8, $habilitarMaiusculas = True, $habilitarNumeros = True, $habilitarCaracteres){
+
 }
 
 ?>

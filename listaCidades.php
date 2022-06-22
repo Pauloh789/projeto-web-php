@@ -1,4 +1,9 @@
 <?php
+session_start();
+
+$verificaUsuarioLogado = $_SESSION['verificaUsuarioLogado'];
+
+if ($verificaUsuarioLogado){
     include "conectaBanco.php";
 
     if (isset($_GET['codigoEstado'])) {
@@ -16,4 +21,5 @@
             echo "<option value=\"$codigoCidade\">$nomeCidade</option>";
         }
     }
+}
 ?>

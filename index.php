@@ -36,13 +36,33 @@
 
                     switch ($codMsg) {
                         case '001' :
-                            $classeMensagem = 'alert-danger';
+                            $classeMensagem = "alert-danger";
                             $textoMensagem = 'Informe o usuário e senha para acessar o sistema.';
                             break;
                         case '002' :
-                            $classeMensagem = 'alert-danger';
+                            $classeMensagem = "alert-danger";
                             $textoMensagem = 'Usuário ou senha incorretos.';
                             break;
+                        case '003' :
+                            $classeMensagem = "alert-danger";
+                            $textoMensagem = 'Usuário não logado no sistema.';
+                            break;    
+                        case '004' :
+                             $classeMensagem = "alert-danger";
+                             $textoMensagem = "Informe o e-mail do usuario cadastrado no sistemas.";
+                             break;  
+                        case '005' :
+                            $classeMensagem = "alert-danger";
+                            $textoMensagem = "Usuário não cadastrado no sistema.";
+                            break;    
+                        case '006' :
+                            $classeMensagem = "alert-danger";
+                            $textoMensagem = "Ocorreu um erro ao gerar a nova senha";
+                             break;
+                        case '007' :
+                            $classeMensagem = "alert-danger";
+                            $textoMensagem = "Ocorreu um erro ao enviar a nova senha para o e-mail";
+                            break;     
                     }
                 }
 
@@ -78,14 +98,6 @@
                                 <div class="form-group">
                                     <div>
                                         <label for="senhaUsuario"> Senha:  </label> 
-<<<<<<< HEAD:index.php
-=======
-                                    </div>
-                                    <div>
-                                        <input type="password" name="senhaUsuario" class="form-control" size="50"
-                                            id="senhaUsuario" placeholder="Digite a sua senha:" required>
-                                        <label for="senhaUsuario"> Senha: </label>
->>>>>>> 9c2a7836759cb870451ba8815353439a051220a9:index.html
                                     </div>
                                     <div>
                                         <input type="password" name="senhaUsuario" class="form-control" size="50"
@@ -120,7 +132,7 @@
         errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');
             element.closest('.form-group').append(error);
-        },
+        },  
         highlight: function (element, errorClass, validClass) {
             $(element).addClass('is-invalid');
         },
@@ -129,8 +141,8 @@
         }
     });
 
-    $(document).ready(() => {
-        $('#login').validate({
+    $(document).ready(function() {
+        $("#login").validate({
             rules: {
                 mailUsuario: {
                     required: true,
@@ -140,7 +152,21 @@
                     required: true
                 }
             }
-        })
-    })
+        });
+
+        $('#esqueciSenha').click(function() {
+            $('#senhaUsuario').rules("remove", "required");
+
+            $('#login').attr("action", "recuperarSenha.php");
+            $('#login').submit();
+        });
+
+        $('#entrarLogin').click(function() {
+            $('#senhaUsuario').rules("add", "required");
+
+            $('#login').attr("action", "login.php");
+            $('#login').submit();
+        });
+    });
 </script>
 </html>

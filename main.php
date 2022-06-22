@@ -1,3 +1,15 @@
+<?php
+    session_start();
+
+    $verificaUsuarioLogado = $_SESSION['verificaUsuarioLogado'];
+
+    if(!$verificaUsuarioLogado){
+        header("Location: index.php?codMsg=003");
+    } else {
+        $nomeUsuarioLogado = $_SESSION['nomeUsuarioLogado'];
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -63,8 +75,10 @@
                     <form class="form-inline my-2 my-lg-0" method="get" action="">
                         <input class="form-control mr-sm-2" type="search" name="busca" placeholder="Pesquisar">
                         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Pesquisar</button>
-                    </form>
-                    <span></span>
+                    </form> 
+                    <span class="navbar-text ml-4">
+                        Olá <b><?= $nomeUsuarioLogado ?><b>, seja bem-vindo(a)!
+                    </span>
                 </div>
             </div>
         </nav>
