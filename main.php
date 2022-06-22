@@ -38,7 +38,7 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bi-card-list"></i> Cadastros</a>
                             <div class="dropdown-menu" aria-labelledby="menuCadastros">
-                                <a class="dropdown-item" href="cadastroContato.html">
+                                <a class="dropdown-item" href="cadastroContato.php">
                                     <i class="bi-person-fill"></i> Novo contato</a>
                                 <a class="dropdown-item" href="listaContatos.html">
                                     <i class="bi-list-ul"></i> Lista de contatos</a>
