@@ -1,8 +1,9 @@
 <?php
     if (isset($_POST['mailUsuario'])) {
-      $mailUsuario = $_POST['mailUsuario']
+      include "conectaBanco.php";
 
-      include "conectaBanco.php"
+      $mailUsuario = $_POST['mailUsuario'];
+
 
       $sqlUsuario = "SELECT codigoUsuario, nomeUsuario FROM usuarios WHERE mailUsuario=:mailUsuario LIMIT 1";
       
@@ -20,8 +21,10 @@
         list($codigousuario, $nomeUsuario) = $resultadoUsuario[0];
         
         $nomeCompletousuario = explode(' ', $nomeUsuario);
-        $nomeUsuario = $nomeCompletoUsuario[0]
+        $nomeUsuario = $nomeCompletoUsuario[0];
         
+        include "common/gerarSenha.php";
+
         $novaSenha = gerarSenha(8);
         $novaSenhaMD5 = md5($novaSenha);
 

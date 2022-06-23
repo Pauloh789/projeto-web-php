@@ -1,7 +1,7 @@
 <?php
     define('HOST', 'localhost');
     define('USER', 'root');
-    define('PASS', 'cradfor');
+    define('PASS', 'root');
     define('DBNAME', 'agenda');
     define('PORT', '3306');
 
