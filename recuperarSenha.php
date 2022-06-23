@@ -1,4 +1,12 @@
 <?php
+    require 'common/PHPMailer.php';
+    require 'common/SMTP.php';
+    require 'common/Exception.php';
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+
+
     if (isset($_POST['mailUsuario'])) {
       include "conectaBanco.php";
 
@@ -36,19 +44,47 @@
         $sqlAlterarSenhaST->bindValue(':codigoUsuario', $codigoUsuario);
 
         if ($sqlAlterarSenhaST->execute()){
-          // mandar o e-mail
-          if ('e-mail enviado'){
 
+          include 'common/constantes.php';
+          //parametros para acessar o servidor de email
+          $mail = new PHPMailer();
+          $mail->IsSMTP();
+          $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+          $mail-> SMTPAuth = true;
+          $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+          $mail->Host = 'smtp.gmail.com';
+          $mail->Port = 465;
+          $mail->User = GUSER;
+          $mail->Password = GPWD;
+
+          //parametros da mensagem
+          $mensagem = "Olá $nomeUsuario!<br/><br/>
+                      Recebemos sua solicitação de alteração de senha no nosso sistema.<br/><br/>
+                      Sua nova senha é: <span style=\"font-weight: bold; color #FF0000\">$novaSenha</span><br/><br/>
+                      Para sua segurança troque esse senha quando acessar o sistama.<br/><br/> 
+                      Atenciosamente,<br/>
+                      Equipe de desenvolvimento."; 
+          $mail->isHTML(true);
+          $mail->Charset = "UTF8";
+          $mail->SetForm(GUSER, GNAME);
+          $mail->AddAddress($mails);
+          $mail->Subject = 'recuperação de senha';
+          $mail->Password = GPWD;
+          
+          // mandar o e-mail
+          if ($mail->send()){
+            echo "OK";
           }else {// erro ao gerar a nova senha}
-          header("Location: index.php?codMsg=007");
+          //header("Location: index.php?codMsg=007");
+          echo "Erro";
           }
         } else {//erro ao gerar a nova senha
-          header("Location: index.php?codMsg=006");
+          //header("Location: index.php?codMsg=006");
         }
       } else {// usuário não cadastrado
-        header("Location: index.php?codMsg=005");
+        //header("Location: index.php?codMsg=005");
       }
     } else {// e-mail do usuário não informado
-      header("Location: index.php?codMsg=004");
+      //header("Location: index.php?codMsg=004");
     }
 ?>
