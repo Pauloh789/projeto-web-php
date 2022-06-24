@@ -51,38 +51,43 @@
                                 $senha2Usuario = $_POST['senha2Usuario'];
 
                                 if(!empty($nomeUsuario) && !empty($mailUsuario) && !empty($mail2Usuario) && !empty($senhaUsuario) && !empty($senha2Usuario) && !empty($nomeUsuario)){
+                                    if($mailUsuario == $mail2Usuario && $senhaUsuario == $senha2Usuario){
+                                        $sqlUsuarios = "SELECT codigoUsuario from usuarios where mailUsuario = :mailUsuario";
+                                        $sqlUsuariosST = $conexao->prepare($sqlUsuarios);
+                                        $sqlUsuariosST->bindValue(":mailUsuario", $mailUsuario);
+                                        $sqlUsuariosST->execute();
+                                        $quantidadeUsuarios = $sqlUsuariosST->rowcount();
+                                        //row count retorna a quantidade de usuarios na row
 
-                                    $sqlUsuarios = "SELECT codigoUsuario from usuarios where mailUsuario = :mailUsuario";
-                                    $sqlUsuariosST = $conexao->prepare($sqlUsuarios);
-                                    $sqlUsuariosST->bindValue(":mailUsuario", $mailUsuario);
-                                    $sqlUsuariosST->execute();
-                                    $quantidadeUsuarios = $sqlUsuariosST->rowcount();
-                                    //row count retorna a quantidade de usuarios na row
 
+                                        if ($quantidadeUsuarios == 0 ){
 
-                                    if ($quantidadeUsuarios == 0 ){
+                                            $senhaUsuarioMD5 = md5($senhaUsuario);
 
-                                        $senhaUsuarioMD5 = md5($senhaUsuario);
+                                            $sqlNovoUsuario = "INSERT INTO usuarios (nomeUsuario, mailUsuario, senhaUsuario) Values 
+                                            (:nomeUsuario, :mailUsuario, :senhaUsuario)";/*o : marca os valores para serem substituidos pela prep string*/
+                                            
+                                            $sqlNovoUsuarioST =  $conexao->prepare($sqlNovoUsuario);/*prepara para não haver ataques de sql injection*/
+                                            $sqlNovoUsuarioST->bindValue(':nomeUsuario',$nomeUsuario);
+                                            $sqlNovoUsuarioST->bindValue(':mailUsuario',$mailUsuario);
+                                            $sqlNovoUsuarioST->bindValue(':senhaUsuario',$senhaUsuarioMD5);
 
-                                        $sqlNovoUsuario = "INSERT INTO usuarios (nomeUsuario, mailUsuario, senhaUsuario) Values 
-                                        (:nomeUsuario, :mailUsuario, :senhaUsuario)";/*o : marca os valores para serem substituidos pela prep string*/
-                                        
-                                        $sqlNovoUsuarioST =  $conexao->prepare($sqlNovoUsuario);/*prepara para não haver ataques de sql injection*/
-                                        $sqlNovoUsuarioST->bindValue(':nomeUsuario',$nomeUsuario);
-                                        $sqlNovoUsuarioST->bindValue(':mailUsuario',$mailUsuario);
-                                        $sqlNovoUsuarioST->bindValue(':senhaUsuario',$senhaUsuarioMD5);
-
-                                        if ($sqlNovoUsuarioST->execute()){
-                                            $mensagemAcao = "Novo usuario cadastrado com sucesso!";
-                                        }else{
+                                            if ($sqlNovoUsuarioST->execute()){
+                                                $mensagemAcao = "Novo usuario cadastrado com sucesso!";
+                                            }else{
+                                                $flagErro = True;
+                                                $mensagemAcao = "Código erro: " . $sqlNovoUsuarioST->errorCode();
+                                            }
+                                        }else{  
                                             $flagErro = True;
-                                            $mensagemAcao = "Código erro: " . $sqlNovoUsuarioST->errorCode();
-                                        }
-                                    }else{  
-                                        $flagErro = True;
-                                        $mensagemAcao = "Este Email já foi utilizado por outro usuário.";
+                                            $mensagemAcao = "Este Email já foi utilizado por outro usuário.";
 
+                                        }
+                                    }else{
+                                        $flagErro = True;
+                                        $mensagemAcao = "Os campos de confirmação de Email e as senha informados devem ser iguais!";
                                     }
+
                                 }else{
                                     $flagErro = True;
                                     $classeMensagem = "Preencha todos os campos obrigatórios (*)";
