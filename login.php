@@ -17,6 +17,7 @@
         $quantidadeUsuarios = $sqlUsuarioST->rowCount();
 
         if ($quantidadeUsuarios == 1) {
+            console.log('true');
             $resultadoUsuarios = $sqlUsuarioST->fetchAll();
             list($codigoUsuario, $nomeCompletoUsuario) = $resultadoUsuarios[0];
 
