@@ -115,7 +115,7 @@
                                     <a href="novoUsuario.php" class="btn btn-success btn-block">Não sou cadastrado </a>
                                 </div>
                                 <div class="col-sm">
-                                    <button class="btn btn-warning btn-block" id="esqueciSenha" onClick="javascript:alert('alou')">Esqueci a Senha</button>
+                                    <button class="btn btn-warning btn-block" id="esqueciSenha" onClick="esqueciSenhaRequired()">Esqueci a Senha</button>
                                 </div>
                             </div>
                         </div>
@@ -168,5 +168,11 @@
             $('#login').submit();
         });
     });
+
+const botaoEsqueciSenha = document.querySelector('#senhaUsuario');
+const esqueciSenhaRequired = () =>{
+    botaoEsqueciSenha.removeAttribute('required');
+};
+
 </script>
 </html>
