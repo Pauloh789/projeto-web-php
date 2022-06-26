@@ -106,6 +106,45 @@
             <div class="row">
                 <div class="col-sm"></div>
                 <div class="col-sm-10">
+                    <?php
+                        $flagErro = False;
+                        $flagSucesso = False;
+                        $mostrarMensagem = False;
+                        if (isset($_POST['codigoContato'])){// FORM submetido
+                            $codigoContato = $_POST['codigoContato'];
+                            
+                            if(!$flagErro){
+                                if (empty($codigoContato)){//inclusao de contato
+
+
+                                }else{//edição de contato existente
+    
+                                }
+                            }
+                        }else{//carregar dados formulario em branco ou contato existente
+                            if(!isset($_GET['codigoContato'])){//form em branco para cadastrar novo contato
+
+                            }else{// abrir contato já existente
+
+                            }
+                            if($flagErro){
+                                //mostrar msg de erro
+                                $classeMensagem = 'alert-danger';
+                                $mostrarMensagem = True;
+
+
+                            }else if($flagSucesso){
+                                //mensagem sucesso
+                                $classeMensagem = 'alert-success';
+                                $mostrarMensagem = True;
+
+                            }
+                            if($mostrarMensagem){
+
+                            }
+                        }
+                    
+                    ?>
                     <div class="card border-primary my-5">
                         <div class="card-header bg-primary text-white">
                             <h5> Cadastro contato</h5>
@@ -114,7 +153,9 @@
                             <div>
                                 <h4 class="mb-3"><span style="color: blue;"> Dados pessoais </span></h4>
                             </div>
-                            <form id="cadastroContato" method="post" action="novoUsuario.php">
+                            <form id="cadastroContato" method="post" action="cadastroContato.php">
+                                <input type="hidden" name="codigoContato" value="">
+                                <input type="hidden" name="fotoAtualContato" value="">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
