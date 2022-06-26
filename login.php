@@ -1,4 +1,5 @@
 <?php
+session_start();
     if (isset($_POST['mailUsuario']) && isset($_POST['senhaUsuario'])) {
         include 'conectaBanco.php';
 
@@ -12,12 +13,11 @@
         $sqlUsuarioST = $conexao->prepare($sqlUsuario);
         $sqlUsuarioST->bindVAlue(':mailUsuario', $mailUsuario);
         $sqlUsuarioST->bindVAlue(':senhaUsuario', $senhaUsuario);
-        $sqlUsuarioST->EXECUTE();
+        $sqlUsuarioST->execute();
 
         $quantidadeUsuarios = $sqlUsuarioST->rowCount();
 
         if ($quantidadeUsuarios == 1) {
-            console.log('true');
             $resultadoUsuarios = $sqlUsuarioST->fetchAll();
             list($codigoUsuario, $nomeCompletoUsuario) = $resultadoUsuarios[0];
 

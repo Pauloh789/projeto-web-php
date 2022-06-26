@@ -66,6 +66,10 @@
                         case '008':
                             $classeMensagem = 'alert-success';
                             $textoMensagem =  'Sua nova senha foi enviada para o email cadastrado.';
+                            break;
+                        case '009':
+                            $classeMensagem = 'alert-success';
+                            $textoMensagem = 'Sua sessão do sistema foi encerrada com sucesso.';
                     }
                 }
 
