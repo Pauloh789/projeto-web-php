@@ -106,6 +106,89 @@
             <div class="row">
                 <div class="col-sm"></div>
                 <div class="col-sm-10">
+                    <?php
+                        $flagErro = False;
+                        $flagSucesso = False;
+                        $mostrarMensagem = False;
+                        
+                        $dadosContato = array('codigoContato','nomeContato','nascimentoContato','sexoContato','mailContato','fotoContato','fotoAtualContato',
+                        'telefone1Contato','telefone2Contato','telefone3Contato','telefone4Contato','logradouroContato','complementoContato','bairroContato',
+                        'estadoContato','cidadeContato');
+
+                        foreach($dadosContato as $campo);{
+                            $$campo = '';
+                        }
+
+                        $$campo;
+
+                        
+
+                        if (isset($_POST['codigoContato'])){// FORM submetido
+                            $codigoContato = $_POST['codigoContato'];
+
+                            $codigoContato = $_POST['codigoContato'];
+                            $nomeContato  = addslashes($_POST['nomeContato']);
+                            $nascimentoContato = $_POST['nascimentoContato'];
+
+                            if(isset($sexoContato)){
+                                $sexoContato = $_POST['sexoContato'];
+
+                            }else{
+                                $sexoContato = "";
+                            }
+
+                            $mailContato = $_POST['mailContato'];
+
+
+                            $fotoContato = $_POST['fotoContato'];
+
+                            $fotoAtualContato = $_FILES['fotoAtualContato'];
+                            $telefone1Contato = $_POST['telefone1Contato'];
+                            $telefone2Contato = $_POST['telefone2Contato'];
+                            $telefone3Contato = $_POST['telefone3Contato'];
+                            $telefone4Contato = $_POST['telefone4Contato'];
+                            $logradouroContato = addslashes($_POST['logradouroContato']);
+                            $complementoContato = addslashes($_POST['complementoContato']);
+                            $bairroContato = addslashes($_POST['bairroContato']);
+                            $estadoContato = $_POST['estadoContato'];
+                            $cidadeContato = $_POST['cidadeContato'];
+
+                            if(!$flagErro){
+                                if (empty($codigoContato)){//inclusao de contato
+
+
+                                }else{//edição de contato existente
+    
+                                }
+                            }
+                        }else{//carregar dados formulario em branco ou contato existente
+                            if(isset($_GET['codigoContato'])){// abrir contato já existente
+
+                            }
+                            if($flagErro){
+                                //mostrar msg de erro
+                                $classeMensagem = 'alert-danger';
+                                $mostrarMensagem = True;
+
+
+                            }else if($flagSucesso){
+                                //mensagem sucesso
+                                $classeMensagem = 'alert-success';
+                                $mostrarMensagem = True;
+
+                            }
+                            if($mostrarMensagem){
+                                echo '"<div class=\"alert $classeMensagem alert-dismissible fade show\" role=\"alert\">
+                                $mensagemAcao
+                                <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                                <span aria-hidden=\"true\">&times;</span>
+                                </button>
+                            </div>";';
+
+                            }
+                        }
+                    
+                    ?>
                     <div class="card border-primary my-5">
                         <div class="card-header bg-primary text-white">
                             <h5> Cadastro contato</h5>
@@ -114,7 +197,9 @@
                             <div>
                                 <h4 class="mb-3"><span style="color: blue;"> Dados pessoais </span></h4>
                             </div>
-                            <form id="cadastroContato" method="post" action="novoUsuario.php">
+                            <form id="cadastroContato" method="post" enctype="multitype/form-data" action="cadastroContato.php">
+                                <input type="hidden" name="codigoContato" value="">
+                                <input type="hidden" name="fotoAtualContato" value="">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -124,7 +209,7 @@
                                                     <div class="input-group-text"><i class="bi-people-fill"></i></div>
                                                 </div>
                                                 <input id="nomeContato" type="text" size="60" class="form-control"
-                                                    name="nomeContato" placeholder="Digite o seu nome" value=""
+                                                    name="nomeContato" placeholder="Digite o seu nome" value="<?= $nomeContato?>"
                                                     required>
                                             </div>
                                         </div>
@@ -136,7 +221,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text"><i class="bi-people-fill"></i></div>
                                             </div>
-                                            <input class="form-control" type="file" id="fotoContato" name="fotoContato">
+                                            <input class="form-control" type="file" id="fotoContato" name="fotoContato" >
                                         </div>
                                     </div>
                                 </div>
@@ -149,7 +234,7 @@
                                                     <div class="input-group-text"><i class="bi bi-calendar"></i></div>
                                                 </div>
                                                 <input id="nascimentoContato" type="text" class="form-control"
-                                                    name="nascimentoContato" placeholder="DD/MM/AAAA" required>
+                                                    name="nascimentoContato" placeholder="DD/MM/AAAA" value="<?= $nascimentoContato?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -161,13 +246,13 @@
                                             <div class="input-group">
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="sexoContato"
-                                                        id="sexoMasculino" value="masculino">
-                                                    <label class="form-check-label" for="sexoMasculino">
+                                                        id="sexoMasculino" value="M" checked>
+                                                    <label class="form-check-label" for="sexoMasculino" >
                                                         Masculino
                                                     </label>
                                                     &nbsp
                                                     <input class="form-check-input" type="radio" name="sexoContato"
-                                                        id="sexoFeminino" value="feminino">
+                                                        id="sexoFeminino" value="F" checked>
                                                     <label class="form-check-label" for="sexoFeminino">
                                                         Feminino
                                                     </label>
@@ -186,7 +271,7 @@
                                                     <div class="input-group-text"><i class="bi-at"></i></div>
                                                 </div>
                                                 <input id="mailContato" type="email" class="form-control"
-                                                    name="mailContato" placeholder="Digite o seu email" value=""
+                                                    name="mailContato" placeholder="Digite o seu email" value="<?= $emailContato?>"
                                                     required>
                                             </div>
                                         </div>
@@ -209,7 +294,7 @@
                                                 </div>
                                                 <input id="telefone1Contato" type="tel"
                                                     class="form-control mascara-telefone" name="telefone1Contato"
-                                                    placeholder="(xx) xxxx-xxxx" required>
+                                                    placeholder="(xx) xxxx-xxxx"  value="<?= $telefone1Contato?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -222,7 +307,7 @@
                                                 </div>
                                                 <input id="telefone2Contato" type="tel"
                                                     class="form-control mascara-telefone" name="telefone2Contato"
-                                                    placeholder="(xx) xxxx-xxxx">
+                                                    placeholder="(xx) xxxx-xxxx"  value="<?= $telefone2Contato?>">
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +323,7 @@
                                                 </div>
                                                 <input id="telefone3Contato" type="tel"
                                                     class="form-control mascara-telefone" name="telefone3Contato"
-                                                    placeholder="(xx) xxxx-xxxx">
+                                                    placeholder="(xx) xxxx-xxxx"  value="<?= $telefone3Contato?>">
                                             </div>
                                         </div>
                                     </div>
@@ -251,7 +336,7 @@
                                                 </div>
                                                 <input id="telefone4Contato" type="tel"
                                                     class="form-control mascara-telefone" name="telefone4Contato"
-                                                    placeholder="(xx) xxxx-xxxx">
+                                                    placeholder="(xx) xxxx-xxxx"  value="<?= $telefone4Contato?>">
                                             </div>
                                         </div>
                                     </div>
@@ -273,7 +358,7 @@
                                                 </div>
                                                 <input id="logradouroContato" type="text" class="form-control"
                                                     name="logradouroContato"
-                                                    placeholder="Rua, avenida, travessa e outros" required>
+                                                    placeholder="Rua, avenida, travessa e outros"  value="<?= $logradouroContato?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -289,7 +374,7 @@
                                                 </div>
                                                 <input id="complementoContato" type="text" class="form-control"
                                                     name="complementoContato"
-                                                    placeholder="Número, quadra, lote e outros" required>
+                                                    placeholder="Número, quadra, lote e outros"  value="<?= $complementoContato?>" required>
                                             </div>
                                         </div>
                                     </div>
@@ -301,7 +386,7 @@
                                                     <div class="input-group-text"><i class="bi-map"></i></div>
                                                 </div>
                                                 <input id="bairroContato" type="text" class="form-control"
-                                                    name="bairroContato" placeholder="Digite o bairro" required>
+                                                    name="bairroContato" placeholder="Digite o bairro"  value="<?= $bairroContato?>" required>
                                             </div>
                                         </div>
                                     </div>

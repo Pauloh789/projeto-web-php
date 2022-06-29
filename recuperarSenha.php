@@ -54,7 +54,7 @@
           $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
           $mail->Host = 'smtp.gmail.com';
           $mail->Port = 465;
-          $mail->User = GUSER;
+          $mail->Username = GUSER;
           $mail->Password = GPWD;
 
           //parametros da mensagem
@@ -66,16 +66,16 @@
                       Equipe de desenvolvimento."; 
           $mail->isHTML(true);
           $mail->Charset = "UTF8";
-          $mail->SetForm(GUSER, GNAME);
-          $mail->AddAddress($mails);
+          $mail->SetFrom(GUSER, GNAME);
+          $mail->AddAddress($mailUsuario);
           $mail->Subject = 'recuperação de senha';
-          $mail->Password = GPWD;
+          $mail->Body = $mensagem;
           
           // mandar o e-mail
           if ($mail->send()){
-            echo "OK";
+            header("Location: index.php?codMsg=008");
           }else {// erro ao gerar a nova senha}
-          //header("Location: index.php?codMsg=007");
+          header("Location: index.php?codMsg=007");
           echo "Erro";
           }
         } else {//erro ao gerar a nova senha

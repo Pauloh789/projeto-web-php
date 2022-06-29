@@ -51,7 +51,6 @@
                                 $senha2Usuario = $_POST['senha2Usuario'];
 
                                 if(!empty($nomeUsuario) && !empty($mailUsuario) && !empty($mail2Usuario) && !empty($senhaUsuario) && !empty($senha2Usuario) && !empty($nomeUsuario)){
-                                    
                                     if ($mailUsuario == $mail2Usuario && $senhaUsuario == $senha2Usuario) {
                                         
                                         if (strlen($nomeUsuario) >= 5 && strlen(strlen($senhaUsuario) >= 8)) {

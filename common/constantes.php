@@ -1,5 +1,5 @@
 <?php
-    define('GUSER', 'mathMedrado2022@gmail.com');
-    define('GPWD', 'senha');
+    define('GUSER', 'mail');
+    define('GPWD', '');
     define('GNAME', 'Agenda de Contatos');
 ?>
