@@ -110,7 +110,7 @@
                         $flagErro = False;
                         $flagSucesso = False;
                         $mostrarMensagem = False;
-
+                        
                         $dadosContato = array('codigoContato','nomeContato','nascimentoContato','sexoContato','mailContato','fotoContato','fotoAtualContato',
                         'telefone1Contato','telefone2Contato','telefone3Contato','telefone4Contato','logradouroContato','complementoContato','bairroContato',
                         'estadoContato','cidadeContato');
