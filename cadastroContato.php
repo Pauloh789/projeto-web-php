@@ -153,6 +153,22 @@
                             $estadoContato = $_POST['estadoContato'];
                             $cidadeContato = $_POST['cidadeContato'];
 
+                            if(empty($nomeContato) || empty($sexoContato) || empty($mailContato) || empty($telefone1Contato) || empty($logradouroContato) || empty($complementoContato) || empty($bairroContato) || empty($cidadeContato) || empty($estadoContato) ){
+                                $flagErro = true;
+                                $mensagemAcao = 'Preencha todos os campos obrigatórios (*).';
+                            }else if(strlen($nomeContato )< 5){
+                                $flagErro = true;
+                                $mensagemAcao = 'Informe a quantidade mínima de caracteres para cada campo: Nome(5)';
+                            }else if(''){//validação da data de nascimento
+
+                            }else if(''){//validação da foto
+
+                            }else if(''){//validação telefone
+
+                            }
+
+
+
                             if(!$flagErro){
                                 if (empty($codigoContato)){//inclusao de contato
 
@@ -424,7 +440,7 @@
                                                         $resultadosEstados =  $conexao->query($sqlEstados)->fetchAll();
                                                     /* executa um foreach sobre a lista de map que foi retornada da query e injeta no html a option*/ 
                                                         foreach ($resultadosEstados as list($codigoEstado, $nomeEstado)){
-                                                            if($estadoContato == $codigoContato){
+                                                            if($estadoContato == $codigoEstado){
                                                                 $selected = 'selected';
                                                             }else{
                                                                 $selected = '';
