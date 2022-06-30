@@ -153,18 +153,36 @@
                             $estadoContato = $_POST['estadoContato'];
                             $cidadeContato = $_POST['cidadeContato'];
 
+                            $telefonesContato = array($telefone1Contato, $telefone2Contato, $telefone3Contato, $telefone4Contato);
+                            $telefonesFiltradosContato = array_filter($telefonesContato);
+                            $telefonesValidadosContato =  preg_grep('/^\(\d{2}\)\s\d{4,5}\-\d{4}$/', $telefonesContato); 
+
+                            if($telefonesFiltradosContato === $telefonesValidadosContato){
+                                $erroTelefones = False;
+                            }else {
+                                $erroTelefones = True;
+                            }
+
+
                             if(empty($nomeContato) || empty($sexoContato) || empty($mailContato) || empty($telefone1Contato) || empty($logradouroContato) || empty($complementoContato) || empty($bairroContato) || empty($cidadeContato) || empty($estadoContato) ){
-                                $flagErro = true;
+                                $flagErro = True;
                                 $mensagemAcao = 'Preencha todos os campos obrigatórios (*).';
                             }else if(strlen($nomeContato )< 5){
-                                $flagErro = true;
+                                $flagErro = True;
                                 $mensagemAcao = 'Informe a quantidade mínima de caracteres para cada campo: Nome(5)';
-                            }else if(''){//validação da data de nascimento
+                            }else if(preg_match('/^(0?[1-9]|[1,2][0-9]|3[0,1])[\/](0?[1-9]|1[0,1,2])[\/]\d{4$}/', $nascimentoContato)){//validação da data de nascimento
+                                $flagErro = True;
+                                $mensagemAcao = 'A data de nascimento do contato deve ser no formato dia, mês e ano.';
+                            }else if($fotoContato['error'] != 4){//validação da foto
+                                if(!in_array($fotoContato['type'] , array('image/jpg','image/jpeg','image/png' || $fotoContato['size'] > 2000000))){
+                                    $flagErro = True;
+                                    $mensagemAcao = 'A foto do contato deve ser nos formatos jpg, jpeg ou png e ter no máximo 2MB.';
+                                }
 
-                            }else if(''){//validação da foto
-
-                            }else if(''){//validação telefone
-
+                            }else if($erroTelefones){//validação telefone
+                                $flagErro == True;
+                                $mensagemAcao = 'Os campos de telefone devem ser do formato (xx) xxxxx-xxxx.';
+                                //preg_match('/^\(\d{2}\)\s\d{4,5}\-\d{4}$/' ,$telefone1Contato)
                             }
 
 
