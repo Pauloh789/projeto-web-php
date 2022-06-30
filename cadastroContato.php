@@ -170,13 +170,22 @@
                             }else if(strlen($nomeContato )< 5){
                                 $flagErro = True;
                                 $mensagemAcao = 'Informe a quantidade mínima de caracteres para cada campo: Nome(5)';
-                            }else if(preg_match('/^(0?[1-9]|[1,2][0-9]|3[0,1])[\/](0?[1-9]|1[0,1,2])[\/]\d{4$}/', $nascimentoContato)){//validação da data de nascimento
+                            }else if(!empty($nascimentoContato) &&  !preg_match('/^(0?[1-9]|[1,2][0-9]|3[0,1])[\/](0?[1-9]|1[0,1,2])[\/]\d{4$}/', $nascimentoContato)){//validação da data de nascimento
                                 $flagErro = True;
                                 $mensagemAcao = 'A data de nascimento do contato deve ser no formato dia, mês e ano.';
+                            }else if(!preg_match("/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/", $mailContato)){
+                                $flagErro = True;
+                                $mensagemAcao = "Verifique o email informado";
                             }else if($fotoContato['error'] != 4){//validação da foto
                                 if(!in_array($fotoContato['type'] , array('image/jpg','image/jpeg','image/png' || $fotoContato['size'] > 2000000))){
                                     $flagErro = True;
                                     $mensagemAcao = 'A foto do contato deve ser nos formatos jpg, jpeg ou png e ter no máximo 2MB.';
+                                }else{
+                                    list($larguraFoto, $alturaFoto) = getimagesize($fotoContato['tmp_name']);
+                                    if($larguraFoto > 500 || $alturaFoto > 200){
+                                        $flagErro = True;
+                                        $mensagemAcao = "As dimensões da foto devem ser no máxmimo 500x200px.";
+                                    }
                                 }
 
                             }else if($erroTelefones){//validação telefone
@@ -184,8 +193,6 @@
                                 $mensagemAcao = 'Os campos de telefone devem ser do formato (xx) xxxxx-xxxx.';
                                 //preg_match('/^\(\d{2}\)\s\d{4,5}\-\d{4}$/' ,$telefone1Contato)
                             }
-
-
 
                             if(!$flagErro){
                                 if (empty($codigoContato)){//inclusao de contato
