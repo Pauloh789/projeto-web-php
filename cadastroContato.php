@@ -47,7 +47,7 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a href="/main.html" class="navbar-brand"><img src="img/icone.svg" width="30" height="30"
+            <a href="/main.php" class="navbar-brand"><img src="img/icone.svg" width="30" height="30"
                     alt="agenda de contatos"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"> <span
                     class="navbar-toggler-icon"></span></button>
@@ -59,10 +59,10 @@
                             <i class="bi-card-list"></i> Cadastros
                         </a>
                         <div class="dropdown-menu" aria-labelledby="menuCadastros">
-                            <a class="dropdown-item" href="cadastroContato.html">
+                            <a class="dropdown-item" href="cadastroContato.php">
                                 <i class="bi-person-fill"></i> Novo Contato
                             </a>
-                            <a class="dropdown-item" href="listaContatos.html">
+                            <a class="dropdown-item" href="listaContatos.php">
                                 <i class="bi-list-ul"></i> Lista de contatos
                             </a>
                         </div>
@@ -73,7 +73,7 @@
                             <i class="bi-gear-fill"></i> Minha Conta
                         </a>
                         <div class="dropdown-menu" aria-labelledby="menuConta">
-                            <a class="dropdown-item" href="alterarDados.html">
+                            <a class="dropdown-item" href="alterarDados.php">
                                 <i class="bi-pencil-square"></i> Alterar dados
                             </a>
                             <a class="dropdown-item" href="logout.php">
@@ -87,7 +87,7 @@
                         </a>
                     </li>
                 </ul>
-                <form action="listaContatos.html" class="form-inline my-2 my-lg-0" method="get">
+                <form action="listaContatos.php" class="form-inline my-2 my-lg-0" method="get">
                     <input class="form-control mr-sm-2" type="search" name="busca" id="busca" placeholder="Pesquisar">
                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
                 </form>
@@ -115,7 +115,7 @@
                         'telefone1Contato','telefone2Contato','telefone3Contato','telefone4Contato','logradouroContato','complementoContato','bairroContato',
                         'estadoContato','cidadeContato');
 
-                        foreach($dadosContato as $campo);{
+                        foreach($dadosContato as $campo){
                             $$campo = '';
                         }
 
@@ -245,14 +245,28 @@
                                             <label form="sexoContato">Sexo*</label>
                                             <div class="input-group">
                                                 <div class="form-check form-check-inline">
+                                                    <?php 
+                                                        if($sexoContato == 'M'){
+                                                            $checkedMasculino = 'checked';
+                                                            $checkedFeminino = '';
+
+                                                        }else if($sexoContato == 'F'){
+                                                            $checkedFeminino = 'checked';
+                                                            $checkedMasculino = '';
+
+                                                        }else{
+                                                            $checkedMasculino = '';
+                                                            $checkedFeminino = '';
+                                                        }
+                                                    ?>
                                                     <input class="form-check-input" type="radio" name="sexoContato"
-                                                        id="sexoMasculino" value="M" checked>
+                                                        id="sexoMasculino" value="M"  <?= $checkedMasculino ?>>
                                                     <label class="form-check-label" for="sexoMasculino" >
                                                         Masculino
                                                     </label>
                                                     &nbsp
                                                     <input class="form-check-input" type="radio" name="sexoContato"
-                                                        id="sexoFeminino" value="F" checked>
+                                                        id="sexoFeminino" value="F" <?= $checkedFeminino ?>>
                                                     <label class="form-check-label" for="sexoFeminino">
                                                         Feminino
                                                     </label>
@@ -271,7 +285,7 @@
                                                     <div class="input-group-text"><i class="bi-at"></i></div>
                                                 </div>
                                                 <input id="mailContato" type="email" class="form-control"
-                                                    name="mailContato" placeholder="Digite o seu email" value="<?= $emailContato?>"
+                                                    name="mailContato" placeholder="Digite o seu email" value="<?= $mailContato?>"
                                                     required>
                                             </div>
                                         </div>
@@ -410,7 +424,12 @@
                                                         $resultadosEstados =  $conexao->query($sqlEstados)->fetchAll();
                                                     /* executa um foreach sobre a lista de map que foi retornada da query e injeta no html a option*/ 
                                                         foreach ($resultadosEstados as list($codigoEstado, $nomeEstado)){
-                                                            echo "<option value=\"$codigoEstado \">$nomeEstado</option>\n";
+                                                            if($estadoContato == $codigoContato){
+                                                                $selected = 'selected';
+                                                            }else{
+                                                                $selected = '';
+                                                            }
+                                                            echo "<option value=\"$codigoEstado \" $selected>$nomeEstado</option>\n";
                                                         }
                                                     ?>
                                                 </select>
@@ -518,8 +537,14 @@
         //quando o evento mudança ocorrer com o id estadoContato
         $('#estadoContato').change(()=> {
             $('#cidadeContato').html('<option>Carregando...</option>');
-            $('#cidadeContato').load('listaCidade.php?codigoEstado='+ $('#estadoContato').val());
+            $('#cidadeContato').load('listaCidades.php?codigoEstado='+ $('#estadoContato').val());
         });
+        <?php 
+            if(!empty($estadoContato) && !empty($cidadeContato)){
+                echo "$(\'#cidadeContato\').html('<option>Carregando...</option>');
+                $(\'#cidadeContato').load('listaCidades.php?codigoEstado=". $estadoContato . "&codigoCidade=". $cidadeContato . "');";
+            }
+        ?>
     
     });
 </script>

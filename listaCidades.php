@@ -9,6 +9,12 @@ if ($verificaUsuarioLogado){
     if (isset($_GET['codigoEstado'])) {
         $codigoEstado = $_GET['codigoEstado'];
 
+        if(isset($_GET['codigoCidade'])){
+            $codigoCidade = $_GET['codigoCidade'];
+        }else{
+            $codigoCidade = '';
+        }
+
         $sqlCidades = "SELECT codigoCidade, nomeCidade FROM cidades WHERE codigoEstado=:codigoEstado";
 
         $sqlCidadesST = $conexao->prepare($sqlCidades);
@@ -17,9 +23,16 @@ if ($verificaUsuarioLogado){
         $resultadoCidades = $sqlCidadesST->fetchAll();
 
         echo "<option value=\"\">Escolha sua cidade</option>";
-        foreach ($resultadoCidades as list($codigoCidade, $nomeCidade)) {
-            echo "<option value=\"$codigoCidade\">$nomeCidade</option>";
+        foreach ($resultadoCidades as list($codCidade, $nomeCidade)) {
+            if(!empty($codigoCidade ) && $codigoCidade == $codCidade ){
+                $selected = 'selected';
+            }else {
+                $selected = '';
+            }
+            echo "<option value=\"$codCidade\" $selected>$nomeCidade</option>";
         }
+    }else{
+        $codigoCidade = '';
     }
 }
 ?>
