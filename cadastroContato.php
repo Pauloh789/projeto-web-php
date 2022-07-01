@@ -7,7 +7,7 @@
         header("Location: index.php?codMsg=003");
     } else {
         include "conectaBanco.php";
-
+        include "common/formataData.php";
         $nomeUsuarioLogado = $_SESSION['nomeUsuarioLogado'];
     }
 ?>
@@ -196,6 +196,32 @@
 
                             if(!$flagErro){
                                 if (empty($codigoContato)){//inclusao de contato
+                                    $sqlContato = "INSERT INTO contatos (:codigoUsuario, nomeContato,nascimentoContato, sexoContato, mailContato, fotoContato,
+                                    telefone1Contato, telefone2Contato, telefone3Contato, telefone4Contato, logradouroContato, complementoContato, bairroContato,
+                                    cidadeContato, estadoContato) VALUES (:codigoUsuario, :nomeContato, :nascimentoContato, :sexoContato, :mailContato,:fotoContato,
+                                    :telefone1Contato, :telefone2Contato, :telefone3Contato, :telefone4Contato, :logradouroContato, :complementoContato, :bairroContato,
+                                    :cidadeContato, :estadoContato) ";
+
+                                    $sqlContatoST = $conexao->prepare($sqlContato);
+                                    $sqlContatoST->bindValue(':codigoUsuario',$codigoUsuarioLogado);
+                                    $sqlContatoST->bindValue(':nomeContato',$nomeContato);
+
+                                    $nascimentoContato = formataData($nascimentoContato);
+                                    $sqlContatoST->bindValue(':nascimentoContato',$nascimentoContato);
+
+                                    $sqlContatoST->bindValue(':sexoContato',$sexoContato);
+                                    $sqlContatoST->bindValue(':mailContato',$mailContato);
+                                    $sqlContatoST->bindValue(':telefone1Contato',$telefone1Contato);
+                                    $sqlContatoST->bindValue(':telefone2Contato',$telefone2Contato);
+                                    $sqlContatoST->bindValue(':telefone3Contato',$telefone3Contato);
+                                    $sqlContatoST->bindValue(':telefone4Contato',$telefone4Contato);
+                                    $sqlContatoST->bindValue(':logradouroContato',$logradouroContato);
+                                    $sqlContatoST->bindValue(':complementoContato',$complementoContato);
+                                    $sqlContatoST->bindValue(':bairroContato',$bairroContato);
+                                    $sqlContatoST->bindValue(':cidadeContato',$cidadeContato);
+                                    $sqlContatoST->bindValue(':estadoContato',$estadoContato);
+
+                                    $sqlContatoST->bindValue(':fotoContato',$fotoContato);
 
 
                                 }else{//edição de contato existente
