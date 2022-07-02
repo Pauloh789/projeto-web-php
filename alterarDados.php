@@ -312,7 +312,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm text-right">
-                                        <button input type="submit" class="btn btn-info">Salvar</button>
+                                        <button input type="submit" class="btn btn-info">Salvar Alterações</button>
                                     </div>
                                 </div>
                             </form>
