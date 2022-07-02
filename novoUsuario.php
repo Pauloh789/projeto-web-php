@@ -53,7 +53,11 @@
                                 if(!empty($nomeUsuario) && !empty($mailUsuario) && !empty($mail2Usuario) && !empty($senhaUsuario) && !empty($senha2Usuario) && !empty($nomeUsuario)){
                                     if ($mailUsuario == $mail2Usuario && $senhaUsuario == $senha2Usuario) {
                                         
+<<<<<<< HEAD
                                         if (strlen($nomeUsuario) >= 5 && strlen ($senhaUsuario) >= 8) {
+=======
+                                        if (strlen($nomeUsuario) >= 5 && strlen(strlen($senhaUsuario) >= 8)) {
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                             $sqlUsuarios = "SELECT codigoUsuario from usuarios where mailUsuario = :mailUsuario";
                                             $sqlUsuariosST = $conexao->prepare($sqlUsuarios);
                                             $sqlUsuariosST->bindValue(":mailUsuario", $mailUsuario);

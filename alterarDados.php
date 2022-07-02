@@ -6,9 +6,13 @@
     if(!$verificaUsuarioLogado){
         header("Location: index.php?codMsg=003");
     } else {
+<<<<<<< HEAD
         include "conectaBanco.php";
         $nomeUsuarioLogado = $_SESSION['nomeUsuarioLogado'];
         $codigoUsuarioLogado = $_SESSION['codigoUsuarioLogado'];
+=======
+        $nomeUsuarioLogado = $_SESSION['nomeUsuarioLogado'];
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
     }
 ?>
 
@@ -92,6 +96,7 @@
     <div class="row h-100 align-items-center pt-5">
         <div class="container">
             <div class="row">
+<<<<<<< HEAD
                 <div class="col-sm"></div>
                 <div class="col-sm-12">
                     <?php
@@ -229,12 +234,29 @@
                                     <div class="col-sm">
                                         <div class="form-group">
                                             <label for="nomeUsuario">Nome*</label>
+=======
+                <div class="col-sm">
+                    <div class="card border-primary my-5">
+                        <div class="card-header bg-primary text-white">
+                            <h5> Alterar dados</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="novoUsuario" method="post" action="main.html">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="form-group">
+                                            <label for="nomeUsuario">Nome</label>
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-people-fill"></i></div>
                                                 </div>
                                                 <input id="nomeUsuario" type="text" size="60" class="form-control"
+<<<<<<< HEAD
                                                     name="nomeUsuario" placeholder="Digite o seu nome" value="<?= $nomeUsuario ?>"
+=======
+                                                    name="nomeUsuario" placeholder="Digite o seu nome" value=""
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                                     required>
                                             </div>
                                         </div>
@@ -243,26 +265,42 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <label for="mailUsuario">E-mail*</label>
+=======
+                                            <label for="mailUsuario">E-mail</label>
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-at"></i></div>
                                                 </div>
                                                 <input id="mailUsuario" type="email" size="60" class="form-control"
+<<<<<<< HEAD
                                                     name="mailUsuario" placeholder="Digite o seu e-mail" value="<?= $mailUsuario ?>"
+=======
+                                                    name="mailUsuario" placeholder="Digite o seu e-mail" value=""
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                                     required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm">
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <label for="mail2Usuario">Repita seu e-mail*</label>
+=======
+                                            <label for="mail2Usuario">Repita seu e-mail</label>
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-at"></i></div>
                                                 </div>
                                                 <input id="mail2Usuario" type="email" class="form-control"
+<<<<<<< HEAD
                                                     name="mail2Usuario" placeholder="Repita o seu e-mail" value="<?= $mail2Usuario ?>"
+=======
+                                                    name="mail2Usuario" placeholder="Repita o seu e-mail" value=""
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                                     required>
                                             </div>
                                         </div>
@@ -271,13 +309,21 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <label for="senhaAtualUsuario">Senha atual*</label>
+=======
+                                            <label for="senhaAtualUsuario">Senha atual</label>
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-key-fill"></i></div>
                                                 </div>
                                                 <input id="senhaAtualUsuario" type="password" class="form-control"
+<<<<<<< HEAD
                                                     name="senhaAtualUsuario" placeholder="Digite sua senha atual" 
+=======
+                                                    name="senhaAtualUsuario" placeholder="Digite sua senha atual" value=""
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                                     required>
                                             </div>
                                         </div>
@@ -287,26 +333,42 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <label for="senhaUsuario">Nova senha*</label>
+=======
+                                            <label for="senhaUsuario">Nova senha</label>
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-key-fill"></i></div>
                                                 </div>
                                                 <input id="senhaUsuario" type="password" class="form-control"
+<<<<<<< HEAD
                                                     name="senhaUsuario" placeholder="Digite sua nova senha" value="<?= $senhaUsuario ?>"
+=======
+                                                    name="senhaUsuario" placeholder="Digite sua nova senha" value=""
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                                     required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm">
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <label for="senha2Usuario">Repita sua nova senha*</label>
+=======
+                                            <label for="senha2Usuario">Repita sua nova senha</label>
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text"><i class="bi-key-fill"></i></div>
                                                 </div>
                                                 <input id="senha2Usuario" type="password" class="form-control"
+<<<<<<< HEAD
                                                     name="senha2Usuario" placeholder="Repita a sua nova senha" value="<?= $senha2Usuario ?>"
+=======
+                                                    name="senha2Usuario" placeholder="Repita a sua nova senha" value=""
+>>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                                     required>
                                             </div>
                                         </div>
