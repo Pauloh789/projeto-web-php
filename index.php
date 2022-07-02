@@ -122,11 +122,7 @@
                                     <a href="novoUsuario.php" class="btn btn-success btn-block">Não sou cadastrado </a>
                                 </div>
                                 <div class="col-sm">
-<<<<<<< HEAD
                                     <button class="btn btn-warning btn-block" id="esqueciSenha" onClick="esqueciSenhaRequired()" >Esqueci a Senha</button>
-=======
-                                    <button class="btn btn-warning btn-block" id="esqueciSenha" >Esqueci a Senha</button>
->>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                 </div>
                             </div>
                         </div>

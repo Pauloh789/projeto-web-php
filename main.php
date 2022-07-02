@@ -52,11 +52,7 @@
                             <div class="dropdown-menu" aria-labelledby="menuCadastros">
                                 <a class="dropdown-item" href="cadastroContato.php">
                                     <i class="bi-person-fill"></i> Novo contato</a>
-<<<<<<< HEAD
                                 <a class="dropdown-item" href="listaContatos.php">
-=======
-                                <a class="dropdown-item" href="listaContatos.html">
->>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                     <i class="bi-list-ul"></i> Lista de contatos</a>
                             </div>
                         </li>
@@ -65,11 +61,7 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bi-gear-fill"></i> Minha conta</a>
                             <div class="dropdown-menu" aria-labelledby="menuConta">
-<<<<<<< HEAD
                                 <a class="dropdown-item" href="alterarDados.php">
-=======
-                                <a class="dropdown-item" href="alterarDados.html">
->>>>>>> e3e14cde869ea02f224e644b132671f5caafb69b
                                     <i class="bi-pencil-square"></i> Alterar dados</a>
                                 <a class="dropdown-item" href="logout.php">
                                     <i class="bi-door-open-fill"></i> Sair</a>
