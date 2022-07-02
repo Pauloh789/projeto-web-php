@@ -124,9 +124,15 @@
                         
 
                         if (isset($_POST['codigoContato'])){// FORM submetido
+                            
                             $codigoContato = $_POST['codigoContato'];
 
+                            echo $codigoContato;
+
                             $codigoContato = $_POST['codigoContato'];
+
+                            echo "Nome: $nomeContato";
+
                             $nomeContato  = addslashes($_POST['nomeContato']);
                             $nascimentoContato = $_POST['nascimentoContato'];
 
@@ -221,8 +227,33 @@
                                     $sqlContatoST->bindValue(':cidadeContato',$cidadeContato);
                                     $sqlContatoST->bindValue(':estadoContato',$estadoContato);
 
-                                    $sqlContatoST->bindValue(':fotoContato',$fotoContato);
+                                    if($fotoContato['error'] == 0){
+                                        $extensaoFoto = pathinfo($fotoContato['name'], PATHINFO_EXTENSION);
+                                        $nomeFoto = "fotos/" . strtotime("Y-m-d H:i:s") . $codigoUsuarioLogado . '.' .$extensaoFoto;
+                                        if(copy($fotoContato['tmp_name'], $nomeFoto)){
+                                            $fotoEnviada = True;
+                                        }else{
+                                            $fotoEnviada = False;
 
+                                        }
+                                        $sqlContatoST->bindValue(':fotoContato',$nomeFoto);
+                                    }else{
+                                        $sqlContatoST->bindValue(':fotoContato','');
+                                        $fotoEnviada = False;
+                                    }
+
+                                    if($sqlContatoST->execute()){
+                                        $flagSucesso = True;
+                                        $mostrarMensagem = "Novo contato cadastrado com sucesso";
+                                    }else{
+                                        $flagErro = True;
+                                        $mensagemAcao = "Erro ao cadastrar o novo contato. Código de erro: $sqlContatoST->errorCode().";
+
+                                        $nascimentoContato = formataData($nascimentoContato);
+                                        if($fotoEnviada){
+                                            unlink($nomeFoto);
+                                        }
+                                    }
 
                                 }else{//edição de contato existente
     
@@ -245,12 +276,12 @@
 
                             }
                             if($mostrarMensagem){
-                                echo '"<div class=\"alert $classeMensagem alert-dismissible fade show\" role=\"alert\">
+                                echo "<div class=\"alert $classeMensagem alert-dismissible fade show\" role=\"alert\">
                                 $mensagemAcao
                                 <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
                                 <span aria-hidden=\"true\">&times;</span>
                                 </button>
-                            </div>";';
+                                </div>";
 
                             }
                         }

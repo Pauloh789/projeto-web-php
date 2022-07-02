@@ -8,6 +8,9 @@ if ($verificaUsuarioLogado){
 
     if (isset($_GET['codigoEstado'])) {
         $codigoEstado = $_GET['codigoEstado'];
+    }else {
+        $codigoCidade = '';
+    }
 
         if(isset($_GET['codigoCidade'])){
             $codigoCidade = $_GET['codigoCidade'];
@@ -31,8 +34,6 @@ if ($verificaUsuarioLogado){
             }
             echo "<option value=\"$codCidade\" $selected>$nomeCidade</option>";
         }
-    }else{
-        $codigoCidade = '';
-    }
+
 }
 ?>
