@@ -37,7 +37,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
-                <a href="main.html" class="navbar-brand">
+                <a href="main.php" class="navbar-brand">
                     <img src="img/icone.svg" widht="30" height="30" alt="Agenda de contatos"/>
                 </a> 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -96,7 +96,7 @@
                   <img src="img/logo.jpg">
                   <hr>
                   <p>Agenda de contatos</p>
-                  <p>Versão 1.0</p>
+                  <p>Versão 1.1</p>
                   <p>Todos os direitos reservados &copy; 2022</p>
                 </div>
                 <div class="modal-footer">

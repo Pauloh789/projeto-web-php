@@ -76,15 +76,14 @@
             header("Location: index.php?codMsg=008");
           }else {// erro ao gerar a nova senha}
           header("Location: index.php?codMsg=007");
-          echo "Erro";
           }
         } else {//erro ao gerar a nova senha
-          //header("Location: index.php?codMsg=006");
+          header("Location: index.php?codMsg=006");
         }
       } else {// usuário não cadastrado
-        //header("Location: index.php?codMsg=005");
+        header("Location: index.php?codMsg=005");
       }
     } else {// e-mail do usuário não informado
-      //header("Location: index.php?codMsg=004");
+      header("Location: index.php?codMsg=004");
     }
 ?>
