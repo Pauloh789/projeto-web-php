@@ -10,7 +10,7 @@ if (!$verificaUsuarioLogado) {
     include "common/formataData.php";
 
     $codigoUsuarioLogado = $_SESSION['codigoUsuarioLogado'];
-    $nomeUsuarioLogado = $_SESSION['nomeUsuarioLogado'];
+    $nomeUsuarioLogado = $_SESSION['nomeUsuarioLogado']; 
 }
 ?>
 
