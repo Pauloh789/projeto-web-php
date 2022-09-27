@@ -10,7 +10,7 @@
 
         $nomeUsuarioLogado = $_SESSION['nomeUsuarioLogado'];
         $codigoUsuarioLogado = $_SESSION['codigoUsuarioLogado'];
-    }
+    } 
 ?>
 
 <!DOCTYPE html>
