@@ -9,7 +9,7 @@ if (!$verificaUsuarioLogado) {
     include "conectaBanco.php";
     include "common/formataData.php";
 
-    $codigoUsuarioLogado = $_SESSION['codigoUsuarioLogado'];
+    $codigoUsuarioLogado = $_SESSION['codigoUsuarioLogado']; 
     $nomeUsuarioLogado = $_SESSION['nomeUsuarioLogado']; 
 }
 ?>
